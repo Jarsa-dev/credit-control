@@ -1,7 +1,7 @@
 # Copyright 2026 Jarsa
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -14,7 +14,6 @@ class ResPartner(models.Model):
     )
     purchase_risk_currency_id = fields.Many2one(
         comodel_name="res.currency",
-        string="Purchase Risk Currency",
         default=lambda self: self.env.company.currency_id,
         help="Currency used for the purchase risk limit and exposure amounts.",
     )
@@ -217,7 +216,7 @@ class ResPartner(models.Model):
             .res_id
         )
         return {
-            "name": _("Purchase financial risk information"),
+            "name": self.env._("Purchase financial risk information"),
             "view_mode": "pivot",
             "res_model": model_name,
             "view_id": view_id,

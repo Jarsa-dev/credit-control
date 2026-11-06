@@ -7,7 +7,6 @@
         <field name="model">purchase.risk.exception</field>
         <field name="arch" type="xml">
             <form string="Purchase Risk Limit Exceeded">
-                <p>This document exceeds the vendor's purchase risk limit.</p>
                 <field name="exception_msg" colspan="2" nolabel="1" />
                 <field name="currency_id" invisible="1" />
                 <field name="order_id" invisible="not order_id" />

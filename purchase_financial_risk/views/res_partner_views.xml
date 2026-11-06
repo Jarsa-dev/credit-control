@@ -85,7 +85,6 @@
                                 name="purchase_risk_exception"
                                 readonly="not purchase_risk_allow_edit"
                             />
-                            <field name="purchase_risk_allow_edit" invisible="1" />
                         </group>
                     </group>
                 </page>

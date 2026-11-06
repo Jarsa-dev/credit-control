@@ -106,6 +106,7 @@ Contributors
 - `Jarsa <https://www.jarsa.com>`__:
 
   - Jarsa Development Team
+  - Hector Meraz <hector.meraz@jarsa.com>
 
 Maintainers
 -----------

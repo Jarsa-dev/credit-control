@@ -1,7 +1,7 @@
 # Copyright 2026 Jarsa
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, models
+from odoo import models
 
 
 class AccountMove(models.Model):
@@ -15,7 +15,9 @@ class AccountMove(models.Model):
         # The sum already includes draft bills (`purchase_risk_bill_draft`).
         # By the time of posting, if total risk exceeds limit, we can block it.
         if partner.purchase_risk > partner.purchase_risk_limit:
-            return _("This document exceeds the vendor's purchase risk limit.\n")
+            return self.env._(
+                "This document exceeds the vendor's purchase risk limit.\n"
+            )
         return ""
 
     def action_post(self):
