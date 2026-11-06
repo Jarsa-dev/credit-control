@@ -4,7 +4,7 @@
 from odoo import fields
 from odoo.tests import Form, TransactionCase, new_test_user, tagged
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT
+from odoo.addons.base.tests.common import DISABLED_MAIL_CREATE_CONTEXT
 
 
 @tagged("post_install", "-at_install")
@@ -12,11 +12,15 @@ class TestPurchaseFinancialRisk(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
-        cls.env.user.groups_id |= cls.env.ref(
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context, tracking_disable=True, **DISABLED_MAIL_CREATE_CONTEXT
+            )
+        )
+        cls.env.user.group_ids |= cls.env.ref(
             "purchase_financial_risk.group_purchase_risk_manager"
         )
-        cls.env.user.groups_id |= cls.env.ref("purchase.group_purchase_manager")
+        cls.env.user.group_ids |= cls.env.ref("purchase.group_purchase_manager")
         cls.vendor = cls.env["res.partner"].create(
             {
                 "name": "Test Vendor",
@@ -66,9 +70,9 @@ class TestPurchaseFinancialRisk(TransactionCase):
                             "name": self.product.name,
                             "product_id": self.product.id,
                             "product_qty": qty,
-                            "product_uom": self.uom_unit.id,
+                            "uom_id": self.uom_unit.id,
                             "price_unit": price_unit,
-                            "taxes_id": [],
+                            "tax_ids": [],
                             "date_planned": "2026-01-01",
                         },
                     )

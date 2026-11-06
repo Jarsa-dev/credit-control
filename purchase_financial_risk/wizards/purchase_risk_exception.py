@@ -1,7 +1,7 @@
 # Copyright 2026 Jarsa
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import fields, models
 
 
 class PurchaseRiskException(models.TransientModel):
@@ -43,7 +43,7 @@ class PurchaseRiskException(models.TransientModel):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": _("Purchase risk limit exceeded"),
+            "name": self.env._("Purchase risk limit exceeded"),
             "res_model": self._name,
             "res_id": self.id,
             "view_mode": "form",

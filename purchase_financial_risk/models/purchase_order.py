@@ -1,7 +1,7 @@
 # Copyright 2026 Jarsa
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class PurchaseOrderLine(models.Model):
@@ -38,7 +38,7 @@ class PurchaseOrderLine(models.Model):
     )
     def _compute_purchase_risk_amount(self):
         for line in self:
-            if line.state not in ("purchase", "done") or not line.product_qty:
+            if line.state != "purchase" or not line.product_qty:
                 line.purchase_risk_amount = 0.0
                 continue
             qty_to_invoice = max(line.product_qty - line.qty_invoiced, 0.0)
@@ -82,7 +82,9 @@ class PurchaseOrder(models.Model):
             round=False,
         )
         if (partner.purchase_risk + risk_amount) > partner.purchase_risk_limit:
-            return _("This document exceeds the vendor's purchase risk limit.\n")
+            return self.env._(
+                "This document exceeds the vendor's purchase risk limit.\n"
+            )
         return ""
 
     def button_confirm(self):
