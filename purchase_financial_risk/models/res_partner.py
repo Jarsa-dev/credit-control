@@ -96,8 +96,10 @@ class ResPartner(models.Model):
             }
         )
         vendors = self.filtered(
-            lambda p: p == p.commercial_partner_id
-            or (p._origin and p._origin.id in p.commercial_partner_id.ids)
+            lambda p: (
+                p == p.commercial_partner_id
+                or (p._origin and p._origin.id in p.commercial_partner_id.ids)
+            )
         )
         if not vendors:
             return
